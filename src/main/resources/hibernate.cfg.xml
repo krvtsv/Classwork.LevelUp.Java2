@@ -14,7 +14,12 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <mapping class="org.levelup.Hibernate.domain.User" />
-
+        <mapping class="org.levelup.application.domain.CompanyEntity" />
+        <mapping class="org.levelup.application.domain.CompanyLegalDetailsEntity" />
+        <mapping class="org.levelup.application.domain.UserEntity" />
+        <mapping class="org.levelup.application.domain.UserAddressEntity"/>
+        <mapping class="org.levelup.application.domain.PositionEntity"/>
+        <mapping class="org.levelup.application.domain.JobListEntity"/>
+        <mapping class="org.levelup.application.domain.AuthDetailsEntity"/>
     </session-factory>
 </hibernate-configuration>

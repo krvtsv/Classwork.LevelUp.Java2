@@ -3,7 +3,7 @@ package org.levelup.Hibernate.Service;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.levelup.Hibernate.domain.User;
+import org.levelup.application.domain.UserEntity;
 
 public class UserService {
     private final SessionFactory factory;
@@ -12,11 +12,11 @@ public class UserService {
         this.factory = factory;
     }
 
-    public User createUserPersist(String name, String lastName, String passport) {
+    public UserEntity createUserPersist(String name, String lastName, String passport) {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        User user = new User();//condition --> transient
+        UserEntity user = new UserEntity();//condition --> transient
         user.setName(name);
         user.setLastName(lastName);
         user.setPassport(passport);
@@ -30,7 +30,7 @@ public class UserService {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setName(name);
         user.setLastName(lastName);
         user.setPassport(passport);
@@ -43,16 +43,16 @@ public class UserService {
         return generatedId;
     }
 
-    public User getById(Integer id) {
+    public UserEntity getById(Integer id) {
         Session session = factory.openSession();
 
-        User user = session.get(User.class,id);
+        UserEntity user = session.get(UserEntity.class,id);
 
         session.close();
         return user;
     }
     public Integer cloneUser(Integer id, String passport) {
-        User user = getById(id);
+        UserEntity user = getById(id);
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -64,31 +64,31 @@ public class UserService {
         return cloneId;
     }
 
-    public User updateUserNameWithMerge(Integer id, String name) {
-        User user = getById(id);
+    public UserEntity updateUserNameWithMerge(Integer id, String name) {
+        UserEntity user = getById(id);
 
 
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
         user.setName(name);
-        User mergedUser = (User) session.merge(user);
+        UserEntity mergedUser = (UserEntity) session.merge(user);
 
         transaction.commit();
         session.close();
         System.out.println("original user: "+ Integer.toHexString(user.hashCode()));
         return mergedUser;
     }
-    public User mergeNewUser(String name, String lastName, String passport) {
+    public UserEntity mergeNewUser(String name, String lastName, String passport) {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        User user = new User();//condition --> transient
+        UserEntity user = new UserEntity();//condition --> transient
         user.setName(name);
         user.setLastName(lastName);
         user.setPassport(passport);
 
-        User mergedUser = (User) session.merge(user);
+        UserEntity mergedUser = (UserEntity) session.merge(user);
 
         transaction.commit();
         session.close();
@@ -98,7 +98,7 @@ public class UserService {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        User user = new User();//condition --> transient
+        UserEntity user = new UserEntity();//condition --> transient
         user.setName(name);
         user.setLastName(lastName);
         user.setPassport(passport);
