@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface CompanyDao {
 
-    void createCompany(String name, String ein, String address);
+    CompanyEntity createCompany(String name, String ein, String address);
 
     CompanyEntity findById(Integer id);
 

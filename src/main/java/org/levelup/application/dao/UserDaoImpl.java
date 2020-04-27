@@ -14,9 +14,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     @Override
-    public UserEntity createUser(String name, String lastName, String passport, Collection<String> addresses) {
+    public UserEntity createUser(Integer id, String name, String lastName, String passport, Collection<String> addresses) {
         return runInTransaction(session -> {
             UserEntity user = new UserEntity();
+            user.setId(id);
             user.setName(name);
             user.setLastName(lastName);
             user.setPassport(passport);

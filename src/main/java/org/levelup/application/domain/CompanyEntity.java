@@ -1,8 +1,6 @@
 package org.levelup.application.domain;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +9,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "companies")
+@NoArgsConstructor
 public class CompanyEntity {
 
     @Id
@@ -27,6 +26,8 @@ public class CompanyEntity {
     @JoinColumn(name = "id")
     private CompanyLegalDetailsEntity legalDetails;
 
+
+
     @ManyToMany
     @JoinTable(name = "company_positions",
             joinColumns = @JoinColumn(name = "company_id"),
@@ -41,5 +42,10 @@ public class CompanyEntity {
                 ", ein='" + ein + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+    public CompanyEntity(String name, String ein, String address) {
+        this.name = name;
+        this.ein = ein;
+        this.address = address;
     }
 }

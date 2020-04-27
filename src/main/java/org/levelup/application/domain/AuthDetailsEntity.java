@@ -2,6 +2,7 @@ package org.levelup.application.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -25,5 +26,8 @@ public class AuthDetailsEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-
+    public AuthDetailsEntity(String login, String password) {
+        this.password = password;
+        this.login = login;
+    }
 }

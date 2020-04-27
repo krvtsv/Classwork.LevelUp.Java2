@@ -26,10 +26,7 @@ public class JobListDaoImpl extends AbstractDao implements JobListDao {
 
     @Override
     public JobListEntity findJobRecord(Integer companyId, Integer userId, Integer positionID) {
-     return runWithoutTransaction(session -> {
-            return session.get(JobListEntity.class, new JobListId(companyId, positionID, userId));
-        });
-
+     return runWithoutTransaction(session -> session.get(JobListEntity.class, new JobListId(companyId, positionID, userId)));
     }
 
 }

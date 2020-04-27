@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface UserDao {
     UserEntity findById(Integer id);
-    UserEntity createUser(String name, String lastName, String passport, Collection<String> addresses);
+    UserEntity createUser(Integer id,String name, String lastName, String passport, Collection<String> addresses);
 
     Collection<UserEntity> findAll();
 }

@@ -3,6 +3,7 @@ package org.levelup.application.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,7 +19,8 @@ public class PositionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
+    @NotNull
     private String name;
     @ManyToMany(mappedBy = "positions")
     private List<CompanyEntity> companies;
