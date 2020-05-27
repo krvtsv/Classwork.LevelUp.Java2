@@ -41,15 +41,11 @@ class CompanyLegalDetailsDaoImplTest {
         when(query.setParameter(anyString(), any())).thenReturn(query);
     }
 
-    @AfterEach
-    void tearDown() {
-        dao = null;
-    }
 
     @Test
     void testUpdateLegalDetailInCompany() {
         Integer companyId = 3;
-        String bankName = "Test bank name";
+        String bankName = "Test bank name 1";
         String bic = "2525252";
         dao.updateLegalDetailInCompany(companyId,bankName,bic);
         verify(session).persist(new CompanyLegalDetailsEntity(companyId, bankName, bic));
@@ -60,10 +56,12 @@ class CompanyLegalDetailsDaoImplTest {
 
     @Test
     void testFindAllByBankName() {
-        String bankName = "Test bank name";
-        dao.findAllByBankName(bankName);
+
+        String bankName = "Test bank name 2";
+        assertTrue(dao.findAllByBankName(bankName).isEmpty());
         verify(query).getResultList();
-        verify(query).setParameter(anyString(), eq("Test bank name"));
+        verify(query).setParameter(anyString(), eq("Test bank name 2"));
         verify(session).close();
+
     }
 }

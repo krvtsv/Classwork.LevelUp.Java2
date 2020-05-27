@@ -24,7 +24,7 @@ public class JobApplication {
 //
 //        legalDetailsDao.updateLegalDetailInCompany(company.getId(), "Sberbank", "954545412");
 
-AuthDetailsDao authDetailsDao = new AuthDetailsDaoImpl(factory);
+        AuthDetailsDao authDetailsDao = new AuthDetailsDaoImpl(factory);
         authDetailsDao.updatePasswordByLogin("OlegOlegov1", "newPassword");
 
 //        Collection<CompanyLegalDetailsEntity> companyLegalDetails = legalDetailsDao.findAllByBankName("Sberbank");
@@ -54,4 +54,3 @@ AuthDetailsDao authDetailsDao = new AuthDetailsDaoImpl(factory);
 
 
 }
-

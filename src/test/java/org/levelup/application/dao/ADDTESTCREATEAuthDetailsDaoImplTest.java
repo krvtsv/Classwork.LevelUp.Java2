@@ -14,10 +14,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
 
 
+import javax.persistence.PersistenceException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class AuthDetailsDaoImplTest {
+class ADDTESTCREATEAuthDetailsDaoImplTest {
 
     @Mock
     private SessionFactory factory;
@@ -36,14 +38,9 @@ class AuthDetailsDaoImplTest {
         when(factory.openSession()).thenReturn(session);
         when(session.beginTransaction()).thenReturn(transaction);
         when(session.createQuery(anyString(), any())).thenReturn(query);
+        when(session.createQuery(anyString())).thenReturn(query);
         when(query.setParameter(anyString(), any())).thenReturn(query);
     }
-
-    @AfterEach
-    void tearDown() {
-        dao = null;
-    }
-
 
     @Test
     void testFindByPasswordAndLogin_whenValidParams_thenExecuteQuery() {
@@ -68,5 +65,27 @@ class AuthDetailsDaoImplTest {
         verify(session).close();
         verify(transaction).commit();
         verify(query, times(2)).setParameter(anyString(), any());
+        verify(query).executeUpdate();
     }
+
+    @Test
+    void testUpdatePasswordByLogin_whenPasswordIsNull_thenThrowException() {
+        String login = "login";
+        String password = null;
+        when(query.setParameter(anyString(), eq(password))).thenThrow(PersistenceException.class);
+        assertThrows(PersistenceException.class, () -> dao.updatePasswordByLogin(login, password));
+        verify(session).close();
+        verify(query, times(2)).setParameter(anyString(), any());
+    }
+
+    @Test
+    void testUpdatePasswordByLogin_whenLoginIsNull_thenThrowException() {
+        String login = null;
+        String password = "password";
+        when(query.setParameter(anyString(), eq(login))).thenThrow(PersistenceException.class);
+        assertThrows(PersistenceException.class, () -> dao.updatePasswordByLogin(login, password));
+        verify(session).close();
+        verify(query, times(1)).setParameter(anyString(), any());// method invokes only for login
+    }
+
 }

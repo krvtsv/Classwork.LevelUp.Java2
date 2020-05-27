@@ -16,10 +16,10 @@ public class AuthDetailsEntity {
     @Column(name = "user_id")
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 30)
     private String login;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 50)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -8,5 +8,5 @@ public interface AuthDetailsDao {
 
     void updatePasswordByLogin(String login, String password);
 
-
+    AuthDetailsEntity createAccount(String login, String password);
 }

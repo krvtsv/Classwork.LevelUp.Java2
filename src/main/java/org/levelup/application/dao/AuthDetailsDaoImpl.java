@@ -18,11 +18,21 @@ public class AuthDetailsDaoImpl extends AbstractDao implements AuthDetailsDao {
 
     @Override
     public void updatePasswordByLogin(String login, String password) {
-        runInTransaction(session -> {
-            return session.createQuery("update AuthDetailsEntity set password=:password where login=:login", AuthDetailsEntity.class)
-                    .setParameter("login", login).setParameter("password", password);
-
+        runInTransaction(session -> { session.createQuery("update AuthDetailsEntity set password=:password where login=:login")
+                    .setParameter("login", login)
+                    .setParameter("password", password)
+                    .executeUpdate();
         });
+    }
+
+    @Override
+    public AuthDetailsEntity createAccount(String login, String password) {
+        return runInTransaction(session -> {
+            AuthDetailsEntity account = new AuthDetailsEntity(login,password);
+            session.persist(account);
+            return account;
+        });
+
     }
 
 

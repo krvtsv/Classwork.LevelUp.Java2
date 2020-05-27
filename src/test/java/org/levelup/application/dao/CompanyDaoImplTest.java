@@ -41,11 +41,6 @@ class CompanyDaoImplTest {
         when(query.setParameter(anyString(), any())).thenReturn(query);
     }
 
-    @AfterEach
-    void tearDown() {
-        dao = null;
-    }
-
     @Test
     void testCreateCompany_whenValidParams_thenCreateCompany() {
         String name = "TestCompany";
